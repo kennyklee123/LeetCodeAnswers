@@ -1,0 +1,29 @@
+class Solution 
+{
+    public int[] sortArrayByParityII(int[] A) 
+    {   
+        
+        int[] val = new int[A.length];      
+        int even = 0;
+        int odd = 1;
+
+        for (int i = 0; i < A.length; i++)
+        {
+            int det = A[i] %2;
+            //A[i] is even
+            if( det == 0)
+            {
+                val[even] = A[i];
+                even += 2;
+            }
+            else //A[i] was odd
+            {
+                
+                val[odd] = A[i];
+                odd += 2;
+            }
+        }
+        return val;
+    }    
+              
+}

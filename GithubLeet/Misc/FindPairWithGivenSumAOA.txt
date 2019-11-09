@@ -1,0 +1,61 @@
+import java.util.*;
+public class AmazonOAFindPairWithGivenSum 
+{
+	public static void main(String[] args)
+	{
+		int[] nums1 = {1, 10, 25, 35, 60};
+		int target1 = 90;
+		System.out.println(Arrays.toString(findPair(nums1, target1-30)));
+		System.out.println(Arrays.toString(slowFindPair(nums1, target1)));
+	}
+	//O(n)
+	public static int[] findPair(int[] a, int target)
+	{
+		HashMap<Integer, Integer> finder = new HashMap<Integer, Integer>();		
+		int max = Integer.MIN_VALUE;
+		int[] result = new int[2];
+		for(int i=0;i<a.length;i++)
+		{
+			if(finder.containsKey(a[i]))
+			{
+				if(a[i] > max || a[finder.get(a[i])] > max)
+				{
+					result[0] = finder.get(a[i]);
+					result[1] = i;
+					max = Math.max(a[i], a[finder.get(a[i])]);
+				}
+			}
+			//this is where values are mapped onto the hashMap 
+			finder.put(target - a[i], i);
+		}
+		return result;
+			
+	}
+	//O(n^2)
+	public static int[] slowFindPair(int[] a, int target)
+	{
+		int targetVal = target - 30;
+		int max = Integer.MIN_VALUE;
+		int[] result = new int[2];
+		result[0] = Integer.MIN_VALUE;
+		result[1] = Integer.MIN_VALUE;
+		for(int i = 0; i<a.length;i++)
+		{		
+			for(int j = i+1; j<a.length;j++)
+			{
+				int temp = a[i] + a[j];
+				if(temp == targetVal)
+				{
+					if(i > result[0])
+					{
+						result[0] = i;
+						result[1] = j;
+						
+					}
+					
+				}
+			}
+		}		
+		return result;
+	}
+}

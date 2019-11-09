@@ -1,0 +1,24 @@
+substrings of size k with k dsitinct hcars
+
+public static List<String> substringK(String s, int k){
+    int start = 0;
+    int end;
+    Set<String> ansSet = new HashSet<>();
+    Set<Character> charSet = new HashSet<>();
+    for (end = 0; end < s.length(); end++){
+        char rightChar = s.charAt(end);
+        while (charSet.contains(rightChar)){
+            char leftChar = s.charAt(start);
+            charSet.remove(leftChar);
+            start++;
+        }
+        charSet.add(rightChar);
+        if (charSet.size() == k){
+            ansSet.add(s.substring(start, end+1));
+            char leftChar = s.charAt(start);
+            charSet.remove(leftChar);
+            start++;
+        }
+    }
+    return new ArrayList(ansSet);
+}
